@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Породы собак</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+			box-sizing: content-box;
+			font-family: 'Roboto', sans-serif;
+		}
+
+		.wrapper {
+			width: 100%;
+			max-width: 1000px;
+			margin-inline: auto;
+		}
+
+		header {
+			display: flex;
+			justify-content: space-around;
+			margin-bottom: 35px;
+		}
+
+		footer {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 15px;
+		}
+
+		footer p {
+			margin-bottom: 15px;
+			margin-top: 0px;
+		}
+
+		footer a {
+			text-decoration: none;
+			font-weight: bolder;
+		}
+
+		.breeds-table {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			gap: 15px;
+		}
+
+		.breed-card {
+			width: max(200px, 22%);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-decoration: none;
+			color: black;
+		}
+
+		.breed-card:hover {
+			color: red;
+		}
+
+		.breed-card img {
+			width: 100px;
+			height: auto;
+			border-radius: 50%;
+		}
+
+		.breed-card:hover img {
+			transition: all 0.5s;
+			border-radius: 43%;
+		}
+
+		.breed-card:not(:hover) img {
+			border-radius: 50%;
+			transition: all 0.5s;
+		}
+
+		.breed-card h2 {
+			font-size: 1rem;
+			text-align: center;
+		}
+	</style>
+
+	<div class="wrapper">
+		<header>
+			<h1>Породы собак</h1>
+		</header>
+		<main>
+			<div id="root"></div>
+		</main>
+		<footer>
+			<p>Info and photos from <a href="https://lapkins.ru/dog/" target="_blank">lapkins.ru</a></p>
+			<p>Created by <a href="https://pashabezk.github.io/MainPage/" target="_blank">pashabezk</a></p>
+		</footer>
+	</div>
+
+
+	<script src="dogBreeds.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+	<script type="text/babel" >
+
+		// карточка породы
+		const BreedCard = (props) => {
+			return(
+				<a className="breed-card" href={props.link} target="_blank">
+					<img src={props.imgLink} alt="breed photo"/>
+					<h2>{props.breed}</h2>
+				</a>
+			);
+		}
+
+		const BreedCards = breeds.map(
+			(elem) => <BreedCard breed={elem['breed']} link={elem['link']} imgLink={elem['img']}/>
+		);
+
+		// табличка с породами
+		const BreedsTable = () => {
+			return (
+				<div className="breeds-table">
+					{BreedCards}
+				</div>
+			);
+		}
+
+		const container = document.getElementById('root');
+		const root = ReactDOM.createRoot(container);
+		root.render(<BreedsTable/>);
+	</script>
+</body>
+</html>
